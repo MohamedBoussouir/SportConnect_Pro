@@ -1,0 +1,16 @@
+# حزم ومكتبات Node.js (حجمها كبير جداً وتُثبت عبر npm install)
+node_modules/
+
+# ملفات المتغيرات البيئية الحساسة (كلمات سر قاعدة البيانات والـ PORT)
+.env
+
+# سجلات الأخطاء والتشغيل
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ملفات ومجلدات محررات الأكواد وأنظمة التشغيل
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

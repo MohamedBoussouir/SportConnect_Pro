@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تجربة إرسال البيانات</title>
+</head>
+<body>
+  <h2>إرسال بيانات إلى السيرفر</h2>
+
+  <form action="/submit" method="POST">
+    <div>
+      <label>اسم النشاط:</label>
+      <input type="text" name="activityName" placeholder="مثال: كرة القدم" required>
+    </div>
+    <br>
+    <div>
+      <label>السعر:</label>
+      <input type="number" name="price" placeholder="مثال: 150" required>
+    </div>
+    <br>
+    <button type="submit">إرسال إلى السيرفر</button>
+  </form>
+</body>
+</html>

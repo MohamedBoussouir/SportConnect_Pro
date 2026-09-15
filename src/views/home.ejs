@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sconnect Pro - Système d'Exploitation du Sport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#F8FAFC] text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Main Hero Container -->
+    <main class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
+
+        <!-- Badge العلوي -->
+        <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-semibold mb-8">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            Système Métropolitain de Gestion Sportive • Version 2.4 Active
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            Le Système d'Exploitation du Sport<br>Municipal & Associatif
+        </h1>
+
+        <!-- النص التوضيحي -->
+        <p class="max-w-3xl mx-auto text-slate-600 text-base md:text-lg leading-relaxed mb-10">
+            Une plateforme d'ingénierie native haute performance conçue pour les directions des sports territoriales,
+            les associations conventionnées et les usagers métropolitains. Zéro framework monolithique, persistance
+            transactionnelle pure, et automatisation rigoureuse des règles de service public.
+        </p>
+
+        <!-- أزرار التوجيه الرئيسية -->
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+            <a href="/dashboard"
+                class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-sm transition">
+                Accéder au Tableau de Bord
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+
+            <a href="/activities"
+                class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium px-6 py-3 rounded-lg shadow-sm transition">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Catalogue des Activités
+            </a>
+
+            <a href="/checkout"
+                class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium px-6 py-3 rounded-lg shadow-sm transition">
+                <span class="text-blue-600 font-bold">+</span>
+                Simulateur d'Inscription
+            </a>
+        </div>
+
+        <!-- شريط الإحصائيات السفلية (KPI Bar) بقيم ديناميكية من السيرفر -->
+        <div
+            class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
+
+            <!-- 1. Infrastructures -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                    🏛️
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-slate-900">
+                    </div>
+                    <div class="text-xs text-slate-500 font-medium">Infrastructures ERP</div>
+                </div>
+            </div>
+
+            <!-- 2. Créneaux Sportifs -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    ⏱️
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-slate-900">
+                        
+                    </div>
+                    <div class="text-xs text-slate-500 font-medium">Créneaux Sportifs</div>
+                </div>
+            </div>
+
+            <!-- 3. Adhérents -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                    👥
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-slate-900">
+                        
+                    </div>
+                    <div class="text-xs text-slate-500 font-medium">Adhérents Enregistrés</div>
+                </div>
+            </div>
+
+            <!-- 4. Inscriptions -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                    📋
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-slate-900">
+                    </div>
+                    <div class="text-xs text-slate-500 font-medium">Inscriptions Confirmées</div>
+                </div>
+            </div>
+
+            <!-- 5. Sécurité ACID -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+                    🛡️
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-900 tracking-wider">ACID</div>
+                    <div class="text-xs text-slate-500 font-medium">Sécurité Anti-Overbooking</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-xs text-slate-400">
+        SportConnect Pro • Plateforme Pure Node.js & PostgreSQL
+    </footer>
+
+</body>
+
+</html>
