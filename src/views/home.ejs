@@ -1,136 +1,182 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="fr" class="h-full bg-slate-50">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sconnect Pro - Système d'Exploitation du Sport</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportConnect Pro - Tableau de bord</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<body class="h-full flex flex-col font-sans text-slate-800">
 
-<body class="bg-[#F8FAFC] text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+  <!-- Navbar -->
+  <header class="bg-indigo-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-black tracking-wider text-indigo-400">SportConnect<span class="text-white">Pro</span></span>
+        <span class="text-xs bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded font-mono">Municipal OS</span>
+      </div>
+      <nav class="flex space-x-4 text-sm font-medium">
+        <a href="/" class="text-white bg-indigo-800 px-3 py-1.5 rounded-md">Tableau de bord</a>
+        <a href="/activities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Activités</a>
+        <a href="/facilities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Installations</a>
+        <a href="/members" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Adhérents</a>
+        <a href="/registrations" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Inscriptions</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Main Hero Container -->
-    <main class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-indigo-700 to-blue-600 rounded-2xl p-6 md:p-8 text-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold">Gestionnaire des Installations Sportives</h1>
+        <p class="text-indigo-100 text-sm mt-1">Supervision en temps réel des plannings, salles ERP et inscriptions associatives.</p>
+      </div>
+      <div class="flex gap-3">
+        <a href="/registrations/new" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-4 py-2 rounded-lg text-sm shadow transition">
+          <i class="fa-solid fa-plus mr-1.5"></i> Nouvelle Inscription
+        </a>
+      </div>
+    </div>
 
-        <!-- Badge العلوي -->
-        <div
-            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-semibold mb-8">
-            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            Système Métropolitain de Gestion Sportive • Version 2.4 Active
+    <!-- KPIs Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      
+      <!-- Total Activities -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Activités</p>
+          <p class="text-3xl font-extrabold text-slate-900 mt-1"><%= typeof stats !== 'undefined' ? stats.activities : 0 %></p>
         </div>
+        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center text-xl">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+      </div>
 
-        <!-- العنوان الرئيسي -->
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-            Le Système d'Exploitation du Sport<br>Municipal & Associatif
-        </h1>
+      <!-- Facilities -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Installations</p>
+          <p class="text-3xl font-extrabold text-slate-900 mt-1"><%= typeof stats !== 'undefined' ? stats.facilities : 0 %></p>
+        </div>
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center text-xl">
+          <i class="fa-solid fa-building"></i>
+        </div>
+      </div>
 
-        <!-- النص التوضيحي -->
-        <p class="max-w-3xl mx-auto text-slate-600 text-base md:text-lg leading-relaxed mb-10">
-            Une plateforme d'ingénierie native haute performance conçue pour les directions des sports territoriales,
-            les associations conventionnées et les usagers métropolitains. Zéro framework monolithique, persistance
-            transactionnelle pure, et automatisation rigoureuse des règles de service public.
-        </p>
+      <!-- Members -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Adhérents</p>
+          <p class="text-3xl font-extrabold text-slate-900 mt-1"><%= typeof stats !== 'undefined' ? stats.members : 0 %></p>
+        </div>
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl">
+          <i class="fa-solid fa-users"></i>
+        </div>
+      </div>
 
-        <!-- أزرار التوجيه الرئيسية -->
-        <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
-            <a href="/dashboard"
-                class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-sm transition">
-                Accéder au Tableau de Bord
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+      <!-- Inscriptions Confirmées -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Inscriptions</p>
+          <p class="text-3xl font-extrabold text-emerald-600 mt-1"><%= typeof stats !== 'undefined' ? stats.confirmedRegistrations : 0 %></p>
+        </div>
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center text-xl">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Grid: Recent Activities + Quick Shortcuts -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Table: Recent Activities (2 Cols) -->
+      <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+          <h2 class="font-bold text-slate-800 text-lg">Activités Récentes</h2>
+          <a href="/activities" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Voir tout &rarr;</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 border-b border-slate-100 font-semibold">
+              <tr>
+                <th class="px-5 py-3">Activité</th>
+                <th class="px-5 py-3">Installation</th>
+                <th class="px-5 py-3">Jour / Horaire</th>
+                <th class="px-5 py-3 text-right">Capacité</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% if (typeof stats !== 'undefined' && stats.recentActivities && stats.recentActivities.length > 0) { %>
+                <% stats.recentActivities.forEach(function(act) { %>
+                  <tr class="hover:bg-slate-50 transition">
+                    <td class="px-5 py-3.5 font-medium text-slate-900"><%= act.name %></td>
+                    <td class="px-5 py-3.5 text-slate-600"><%= act.facility_name || '—' %></td>
+                    <td class="px-5 py-3.5 text-slate-600">
+                      <%= act.day_of_week || act.day || '—' %> 
+                      <%= (act.start_time && act.end_time) ? '(' + act.start_time.slice(0, 5) + ' - ' + act.end_time.slice(0, 5) + ')' : '' %>
+                    </td>
+                    <td class="px-5 py-3.5 text-right">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800">
+                        Max <%= act.max_capacity || act.capacity || 20 %> pers.
+                      </span>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="px-5 py-6 text-center text-slate-400">Aucune activité enregistrée.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Actions Sidebar (1 Col) -->
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+          <h2 class="font-bold text-slate-800 text-lg mb-4">Raccourcis Opérationnels</h2>
+          <div class="space-y-3">
+            <a href="/registrations/new" class="flex items-center p-3 rounded-lg border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition group">
+              <div class="w-9 h-9 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mr-3 group-hover:bg-indigo-600 group-hover:text-white transition">
+                <i class="fa-solid fa-clipboard-check text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Inscrire un Adhérent</p>
+                <p class="text-xs text-slate-400">Affectation & tarif municipal</p>
+              </div>
             </a>
 
-            <a href="/activities"
-                class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium px-6 py-3 rounded-lg shadow-sm transition">
-                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Catalogue des Activités
+            <a href="/members" class="flex items-center p-3 rounded-lg border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition group">
+              <div class="w-9 h-9 rounded-md bg-blue-100 text-blue-600 flex items-center justify-center mr-3 group-hover:bg-blue-600 group-hover:text-white transition">
+                <i class="fa-solid fa-user-plus text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Gestion des Adhérents</p>
+                <p class="text-xs text-slate-400">Fiches médicales & résidents</p>
+              </div>
             </a>
 
-            <a href="/checkout"
-                class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium px-6 py-3 rounded-lg shadow-sm transition">
-                <span class="text-blue-600 font-bold">+</span>
-                Simulateur d'Inscription
+            <a href="/facilities" class="flex items-center p-3 rounded-lg border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/50 transition group">
+              <div class="w-9 h-9 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center mr-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                <i class="fa-solid fa-landmark text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Installations ERP</p>
+                <p class="text-xs text-slate-400">Conformité et capacités des salles</p>
+              </div>
             </a>
+          </div>
         </div>
+      </div>
 
-        <!-- شريط الإحصائيات السفلية (KPI Bar) بقيم ديناميكية من السيرفر -->
-        <div
-            class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
-
-            <!-- 1. Infrastructures -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
-                    🏛️
-                </div>
-                <div>
-                    <div class="text-2xl font-black text-slate-900">
-                    </div>
-                    <div class="text-xs text-slate-500 font-medium">Infrastructures ERP</div>
-                </div>
-            </div>
-
-            <!-- 2. Créneaux Sportifs -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
-                    ⏱️
-                </div>
-                <div>
-                    <div class="text-2xl font-black text-slate-900">
-                        
-                    </div>
-                    <div class="text-xs text-slate-500 font-medium">Créneaux Sportifs</div>
-                </div>
-            </div>
-
-            <!-- 3. Adhérents -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
-                    👥
-                </div>
-                <div>
-                    <div class="text-2xl font-black text-slate-900">
-                        
-                    </div>
-                    <div class="text-xs text-slate-500 font-medium">Adhérents Enregistrés</div>
-                </div>
-            </div>
-
-            <!-- 4. Inscriptions -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
-                    📋
-                </div>
-                <div>
-                    <div class="text-2xl font-black text-slate-900">
-                    </div>
-                    <div class="text-xs text-slate-500 font-medium">Inscriptions Confirmées</div>
-                </div>
-            </div>
-
-            <!-- 5. Sécurité ACID -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
-                    🛡️
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-900 tracking-wider">ACID</div>
-                    <div class="text-xs text-slate-500 font-medium">Sécurité Anti-Overbooking</div>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer class="text-center py-6 text-xs text-slate-400">
-        SportConnect Pro • Plateforme Pure Node.js & PostgreSQL
-    </footer>
+    </div>
+  </main>
 
 </body>
-
 </html>

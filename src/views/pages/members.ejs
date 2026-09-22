@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportConnect Pro - Adhérents</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header / Navbar -->
+  <header class="bg-indigo-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-black tracking-wider text-indigo-400">SportConnect<span class="text-white">Pro</span></span>
+        <span class="text-xs bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded font-mono">Municipal OS</span>
+      </div>
+      <nav class="flex space-x-4 text-sm font-medium">
+        <a href="/" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Tableau de bord</a>
+        <a href="/activities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Activités</a>
+        <a href="/facilities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Installations</a>
+        <a href="/members" class="text-white bg-indigo-800 px-3 py-1.5 rounded-md">Adhérents</a>
+        <a href="/registrations" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Inscriptions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <!-- Top Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Gestion des Adhérents</h1>
+        <p class="text-sm text-slate-500 mt-1">Liste des citoyens inscrits aux programmes sportifs municipaux.</p>
+      </div>
+      <a href="/members/new" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+        <i class="fa-solid fa-user-plus"></i> Nouvel Adhérent
+      </a>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50/75 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <th class="py-4 px-6">Adhérent</th>
+              <th class="py-4 px-6">Contact</th>
+              <th class="py-4 px-6">Date de naissance</th>
+              <th class="py-4 px-6">Statut Résidence</th>
+              <th class="py-4 px-6 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            <% if (typeof members !== 'undefined' && members.length > 0) { %>
+              <% members.forEach(function(member) { %>
+                <tr class="hover:bg-slate-50/60 transition">
+                  <!-- Name & Avatar -->
+                  <td class="py-4 px-6">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-xs">
+                        <%= member.first_name ? member.first_name.charAt(0).toUpperCase() : '' %><%= member.last_name ? member.last_name.charAt(0).toUpperCase() : '' %>
+                      </div>
+                      <div>
+                        <div class="font-semibold text-slate-900">
+                          <%= member.first_name %> <%= member.last_name %>
+                        </div>
+                        <div class="text-xs text-slate-400">ID: #<%= member.id %></div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <!-- Contact -->
+                  <td class="py-4 px-6">
+                    <div class="text-slate-800"><%= member.email || '—' %></div>
+                    <div class="text-xs text-slate-400"><%= member.phone || '—' %></div>
+                  </td>
+
+                  <!-- Date of birth -->
+                  <td class="py-4 px-6 text-slate-600">
+                    <%= member.date_of_birth ? new Date(member.date_of_birth).toLocaleDateString('fr-FR') : '—' %>
+                  </td>
+
+                  <!-- Resident Status Badge -->
+                  <td class="py-4 px-6">
+                    <% if (member.is_resident) { %>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <i class="fa-solid fa-circle-check text-[10px]"></i> Résident
+                      </span>
+                    <% } else { %>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                        <i class="fa-solid fa-circle-xmark text-[10px]"></i> Non-résident
+                      </span>
+                    <% } %>
+                  </td>
+
+                  <!-- Actions -->
+                  <td class="py-4 px-6 text-right">
+                    <div class="inline-flex items-center gap-2">
+                      <a href="/members/<%= member.id %>/edit" class="p-1.5 text-slate-400 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition" title="Modifier">
+                        <i class="fa-regular fa-pen-to-square text-base"></i>
+                      </a>
+                      <form method="POST" action="/members/<%= member.id %>/delete" onsubmit="return confirm('Voulez-vous vraiment supprimer cet adhérent ?');" class="inline">
+                        <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-600 rounded-md hover:bg-slate-100 transition" title="Supprimer">
+                          <i class="fa-regular fa-trash-can text-base"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr>
+                <td colspan="5" class="py-12 text-center text-slate-500">
+                  <div class="flex flex-col items-center justify-center">
+                    <i class="fa-regular fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                    <p class="font-medium text-slate-600">Aucun adhérent enregistré</p>
+                    <p class="text-xs text-slate-400 mt-1">Cliquez sur le bouton ci-dessus pour ajouter un nouvel adhérent.</p>
+                  </div>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

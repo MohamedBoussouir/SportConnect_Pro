@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportConnect Pro - Installations Municipales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800">
+
+  <header class="bg-indigo-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-black tracking-wider text-indigo-400">SportConnect<span class="text-white">Pro</span></span>
+        <span class="text-xs bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded font-mono">Municipal OS</span>
+      </div>
+      <nav class="flex space-x-4 text-sm font-medium">
+        <a href="/" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Tableau de bord</a>
+        <a href="/activities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Activités</a>
+        <a href="/facilities" class="text-white bg-indigo-800 px-3 py-1.5 rounded-md">Installations</a>
+        <a href="/members" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Adhérents</a>
+        <a href="/registrations" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Inscriptions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Installations Sportives</h1>
+        <p class="text-sm text-slate-500 mt-1">Gestion des complexes, salles spécialisées et jauges maximales de sécurité ERP.</p>
+      </div>
+      <a href="/facilities/new" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+        <i class="fa-solid fa-plus"></i> Nouvelle Installation
+      </a>
+    </div>
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 text-slate-500 border-b border-slate-200 font-semibold">
+            <tr>
+              <th class="px-6 py-4">Nom de l'installation</th>
+              <th class="px-6 py-4">Type d'espace</th>
+              <th class="px-6 py-4">Capacité maximale ERP</th>
+              <th class="px-6 py-4">Statut sécurité</th>
+              <th class="px-6 py-4 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <% if (!facilities || facilities.length === 0) { %>
+              <tr>
+                <td colspan="5" class="px-6 py-12 text-center text-slate-400">
+                  <i class="fa-regular fa-building text-3xl mb-2 block"></i>
+                  Aucune installation enregistrée dans la base municipale.
+                </td>
+              </tr>
+            <% } else { %>
+              <% for (let i = 0; i < facilities.length; i++) { %>
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="px-6 py-4 font-semibold text-slate-900">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
+                        <i class="fa-solid fa-building-circle-check"></i>
+                      </div>
+                      <%= facilities[i].name %>
+                    </div>
+                  </td>
+
+                  <td class="px-6 py-4 text-slate-600">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-700">
+                      <%= facilities[i].type || 'Gymnase Omnisport' %>
+                    </span>
+                  </td>
+
+                  <td class="px-6 py-4 font-medium text-slate-900">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700">
+                      <i class="fa-solid fa-shield-halved text-indigo-400"></i>
+                      <%= facilities[i].erp_capacity %> personnes max
+                    </span>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Homologué ERP
+                    </span>
+                  </td>
+
+                  <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                      <a href="/facilities/<%= facilities[i].id %>/edit" class="p-1.5 text-slate-400 hover:text-indigo-600 rounded transition" title="Modifier">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </a>
+
+                      <form method="POST" action="/facilities/<%= facilities[i].id %>/delete" class="inline"  >
+                        <button type="submit" class="p-1.5 text-slate-400 hover:text-red-600 rounded transition" title="Supprimer">
+                          <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% } %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

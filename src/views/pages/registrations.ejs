@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportConnect Pro - Inscriptions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header / Navbar -->
+  <header class="bg-indigo-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-black tracking-wider text-indigo-400">SportConnect<span class="text-white">Pro</span></span>
+        <span class="text-xs bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded font-mono">Municipal OS</span>
+      </div>
+      <nav class="flex space-x-4 text-sm font-medium">
+        <a href="/" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Tableau de bord</a>
+        <a href="/activities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Activités</a>
+        <a href="/facilities" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Installations</a>
+        <a href="/members" class="text-indigo-200 hover:text-white px-3 py-1.5 transition">Adhérents</a>
+        <a href="/registrations" class="text-white bg-indigo-800 px-3 py-1.5 rounded-md">Inscriptions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <!-- Top Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Registre des Inscriptions</h1>
+        <p class="text-sm text-slate-500 mt-1">Suivi des adhésions aux activités sportives, statut des paiements et dossiers médicaux.</p>
+      </div>
+      <a href="/registrations/new" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+        <i class="fa-solid fa-plus"></i> Nouvelle Inscription
+      </a>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50/75 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <th class="py-4 px-6">Adhérent</th>
+              <th class="py-4 px-6">Activité & Installation</th>
+              <th class="py-4 px-6">Date d'inscription</th>
+              <th class="py-4 px-6">Tarif appliqué</th>
+              <th class="py-4 px-6">Statut</th>
+              <th class="py-4 px-6 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            <% if (typeof registrations !== 'undefined' && registrations.length > 0) { %>
+              <% registrations.forEach(function(item) { %>
+                <tr class="hover:bg-slate-50/60 transition">
+                  
+                  <!-- Adhérent -->
+                  <td class="py-4 px-6">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">
+                        <%= item.first_name ? item.first_name.charAt(0).toUpperCase() : '' %><%= item.last_name ? item.last_name.charAt(0).toUpperCase() : '' %>
+                      </div>
+                      <div>
+                        <div class="font-semibold text-slate-900">
+                          <%= item.first_name %> <%= item.last_name %>
+                        </div>
+                        <div class="text-xs text-slate-400">
+                          <% if (item.is_resident) { %>
+                            <span class="text-emerald-600 font-medium">Résident</span>
+                          <% } else { %>
+                            <span>Non-résident</span>
+                          <% } %>
+                          <% if (item.has_pass_sport) { %>
+                            • <span class="text-indigo-600 font-medium">Pass'Sport</span>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <!-- Activité & Installation -->
+                  <td class="py-4 px-6">
+                    <div class="font-semibold text-slate-900"><%= item.activity_name || item.title || 'Activité' %></div>
+                    <div class="text-xs text-slate-400">
+                      <i class="fa-solid fa-location-dot text-[11px] mr-1"></i><%= item.facility_name || 'Non assigné' %>
+                    </div>
+                  </td>
+
+                  <!-- Date Inscription -->
+                  <td class="py-4 px-6 text-slate-600">
+                    <%= item.created_at || item.registration_date ? new Date(item.created_at || item.registration_date).toLocaleDateString('fr-FR') : '—' %>
+                  </td>
+
+                  <!-- Tarif -->
+                  <td class="py-4 px-6 font-semibold text-slate-800">
+                    <%= typeof item.final_price !== 'undefined' ? item.final_price + ' €' : (item.price ? item.price + ' €' : '—') %>
+                  </td>
+
+                  <!-- Statut -->
+                  <td class="py-4 px-6">
+                    <% const status = (item.status || 'CONFIRMED').toUpperCase(); %>
+                    <% if (status === 'CONFIRMED' || status === 'VALIDE' || status === 'CONFIRMÉE') { %>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <i class="fa-solid fa-circle-check text-[10px]"></i> Confirmée
+                      </span>
+                    <% } else if (status === 'PENDING' || status === 'EN_ATTENTE') { %>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                        <i class="fa-solid fa-clock text-[10px]"></i> En attente
+                      </span>
+                    <% } else { %>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                        <i class="fa-solid fa-circle-xmark text-[10px]"></i> <%= item.status %>
+                      </span>
+                    <% } %>
+                  </td>
+
+                  <!-- Actions -->
+                  <td class="py-4 px-6 text-right">
+                    <form method="POST" action="/registrations/<%= item.id %>/delete"  class="inline">
+                      <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-600 rounded-md hover:bg-slate-100 transition" title="Annuler l'inscription">
+                        <i class="fa-regular fa-trash-can text-base"></i>
+                      </button>
+                    </form>
+                  </td>
+
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr>
+                <td colspan="6" class="py-12 text-center text-slate-500">
+                  <div class="flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-clipboard-list text-4xl text-slate-300 mb-3"></i>
+                    <p class="font-medium text-slate-600">Aucune inscription enregistrée</p>
+                    <p class="text-xs text-slate-400 mt-1">Cliquez sur le bouton ci-dessus pour inscrire un adhérent à une activité.</p>
+                  </div>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

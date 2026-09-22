@@ -8,12 +8,4 @@ const con = new Client({
     database: "sportconnect_pro",
 })
 con.connect().then(() => console.log("connect"))
-con.query('SELECT * FROM public.activities WHERE id = 1', (err, res) => {
-    if (!err) {
-        console.log(res.rows);
-
-    } else {
-        console.log(err.message);
-    }
-
-});
+module.exports = con;
