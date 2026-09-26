@@ -11,7 +11,7 @@ const ejs = require('ejs');
 module.exports = handleRoutes;
 
 
-function handleRoutes(req, res) {
+async function handleRoutes(req, res) {
     // Help
     const parts = req.url.split('/');
     // ----------------------------------------GET /home
@@ -25,6 +25,7 @@ function handleRoutes(req, res) {
     // ----------------------------------------POST /activities
     if (req.url == "/activities" && req.method == "POST") {
         activityController.storeActivity(req, res);
+        console.log(req)
     }
     // ---------------------------------------GET /activities/new
     if (req.url == "/activities/new" && req.method == "GET") {
@@ -107,7 +108,6 @@ function handleRoutes(req, res) {
     // ------------------------------------GET  /   registrations
     if (req.url == "/registrations" && req.method == "GET") {
 
-
         registrationController.registration(req, res);
     }
     // ------------------------------------GET  /   registrations/new
@@ -128,4 +128,24 @@ function handleRoutes(req, res) {
 
         registrationController.delete_Registration(req, res, parts[2])
     }
+
+
+    if (req.url == "/test" && req.method == "GET") {
+
+        ejs.renderFile('./src/views/pages/test.ejs', (error, data) => {
+
+            res.end(data);
+        });
+
+    }
+    if (req.url == "/test" && req.method == "POST") {
+
+        const body = await new Response(req).text();
+
+        console.log(body);
+
+
+
+    }
+
 }

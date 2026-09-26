@@ -16,7 +16,6 @@ const Activities = async (req, res) => {
 
 };
 
-
 const showCreateForm = async (req, res) => {
     const facilitiesResult = await con.query('SELECT id, name, erp_capacity FROM public.facilities ORDER BY name ASC');
     const facilities = facilitiesResult.rows;
@@ -45,7 +44,7 @@ const storeActivity = (req, res) => {
         const startTime = req.body.start_time;
         const endTime = req.body.end_time;
 
-        // فحص ترتيب الوقت
+        
         if (startTime >= endTime) {
             res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
             return res.end("Erreur: L'heure de fin doit être postérieure à l'heure de début.");
