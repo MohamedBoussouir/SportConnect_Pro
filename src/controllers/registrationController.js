@@ -1,6 +1,7 @@
 const ejs = require('ejs');
 
 const registrationService = require('../services/registrationService');
+const activitiesService = require('../services/activitiesService');
 const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({ extended: false });
 const con = require('../config/db');
@@ -69,7 +70,7 @@ const store_Registration = async (req, res) => {
 
             const member = memberResult.rows[0];
 
-            
+
             const activityResult = await con.query(
                 'SELECT * FROM public.activities WHERE id = $1',
                 [activity_id]
@@ -84,15 +85,15 @@ const store_Registration = async (req, res) => {
 
             let finalPrice = basePrice;
             if (!member.is_resident) {
-                finalPrice = finalPrice * 1.35; 
+                finalPrice = finalPrice * 1.35;
             }
             if (member.has_pass_sport) {
-                finalPrice = finalPrice - 50.00; 
+                finalPrice = finalPrice - 50.00;
             }
-            finalPrice = Math.max(15.00, finalPrice); 
+            finalPrice = Math.max(15.00, finalPrice);
             finalPrice = Math.round(finalPrice * 100) / 100;
 
-            
+
             const queryText = `
                 INSERT INTO public.registrations (
                     member_id, 
@@ -105,7 +106,7 @@ const store_Registration = async (req, res) => {
             const values = [
                 parseInt(member_id, 10),
                 parseInt(activity_id, 10),
-                status, 
+                status,
                 finalPrice
             ];
 
@@ -131,7 +132,7 @@ const delete_Registration = async (req, res, id) => {
         `;
         await con.query(queryText, [id]);
 
-        
+
         res.writeHead(302, { 'Location': '/registrations' });
         res.end();
 
@@ -140,9 +141,41 @@ const delete_Registration = async (req, res, id) => {
         res.end("Erreur lors de l'annulation de l'inscription : " + err.message);
     }
 };
+const id = async (req, res, id) => {
+    let data = await activitiesService.getActivities_id(id)
+    if (data.length == 0) {
+        res.end(JSON.stringify("404"));
+
+    } else {
+        console.log(data[0]);
+
+        res.end(JSON.stringify(data));
+    }
+
+
+};
+const all = async (req, res,) => {
+    let data = await activitiesService.getAllActivitie(id)
+
+    console.log(data);
+
+    if (data.length == 0) {
+
+        res.end(JSON.stringify("404"));
+    } else {
+
+
+        res.end(JSON.stringify(data));
+    }
+    // console.log(10);
+
+
+};
 module.exports = {
     registration,
     showRegistrationForm,
     store_Registration,
-    delete_Registration
+    delete_Registration,
+    id,
+    all
 };

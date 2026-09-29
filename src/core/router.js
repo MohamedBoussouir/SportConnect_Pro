@@ -130,22 +130,28 @@ async function handleRoutes(req, res) {
     }
 
 
-    if (req.url == "/test" && req.method == "GET") {
 
-        ejs.renderFile('./src/views/pages/test.ejs', (error, data) => {
 
-            res.end(data);
-        });
 
+
+
+
+
+
+    // console.log(typeof(Number(parts[2])) == "number");
+    // console.log(req.method == "GET" );
+
+
+    // GET /activities/12
+    if (parts[1] == "activities" && req.method == "GET" && typeof (Number(parts[2])) == "number") {
+        registrationController.id(req, res, Number(parts[2]))
     }
-    if (req.url == "/test" && req.method == "POST") {
+    // GET /stats/activities
 
-        const body = await new Response(req).text();
-
-        console.log(body);
+    if (req.url == "/stats/activities" && req.method == "GET") {
 
 
-
+        registrationController.all(req, res);
     }
 
 }
